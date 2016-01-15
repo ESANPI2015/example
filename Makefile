@@ -1,24 +1,36 @@
-templatedir = ../toolchain/templates
+toolchaindir = ../toolchain
+map = $(toolchaindir)/map
+map_transform = $(toolchaindir)/map-transform
+map_route = $(toolchaindir)/map-route
+bg_gen = $(toolchaindir)/bg-generate
+templor = $(toolchaindir)/fill-template
+templatedir = $(toolchaindir)/templates
 
 all: rover-transformed.map
 
+targets: *.bsg
+	$(foreach target,$^, $(MAKE) $(subst -c.bsg,.h,$(target));)
+	$(foreach target,$^, $(MAKE) $(subst -c.bsg,.c,$(target));)
+	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,_config.vhd,$(target));)
+	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,.vhd,$(target));)
+
 %.map: %.hwg %.bg 
-	../toolchain/map $^ $@
+	$(map) $^ $@
 
 %-transformed.map: %.map
-	../toolchain/map-transform $^ $@
+	$(map_transform) $^ $@
 
 %-copy.map: *-transformed.map
 	cp $< $@
 
 %-routing.dict: %-copy.map
-	../toolchain/map-route $^ $* $@
+	$(map_route) $^ $* $@
 
 %-c.dict: %-c.bsg
-	../toolchain/bg-generate -n $* -l C $^ $@
+	$(bg_gen) -n $* -l C $^ $@
 
 %-vhdl.dict: %-vhdl.bsg
-	../toolchain/bg-generate -n $* -l VHDL $^ $@
+	$(bg_gen) -n $* -l VHDL $^ $@
 
 %-final-c.dict: %-c.dict %-routing.dict
 	cat $^ > $@
@@ -27,13 +39,13 @@ all: rover-transformed.map
 	cat $^ > $@
 
 %.h: $(templatedir)/*_template.h %-final-c.dict
-	../toolchain/fill-template $^ $@
+	$(templor) $^ $@
 
 %.c: $(templatedir)/*_template.c %-final-c.dict
-	../toolchain/fill-template $^ $@
+	$(templor) $^ $@
 
 %.vhd: $(templatedir)/*graph_template.vhd %-final-vhdl.dict
-	../toolchain/fill-template $^ $@
+	$(templor) $^ $@
 
 %_config.vhd: $(templatedir)/*config_template.vhd %-final-vhdl.dict
-	../toolchain/fill-template $^ $@
+	$(templor) $^ $@

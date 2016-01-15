@@ -14,6 +14,15 @@ targets: *.bsg
 	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,_config.vhd,$(target));)
 	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,.vhd,$(target));)
 
+clean:
+	rm -f *.map
+	rm -f *.btg
+	rm -f *.bsg
+	rm -f *.dict
+	rm -f *.h
+	rm -f *.c
+	rm -f *.vhd
+
 %.map: %.hwg %.bg 
 	$(map) $^ $@
 

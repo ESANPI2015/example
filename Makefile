@@ -9,10 +9,11 @@ templatedir = $(toolchaindir)/templates
 all: rover-transformed.map
 
 targets: *.bsg
-	$(foreach target,$^, $(MAKE) $(subst -c.bsg,.h,$(target));)
+	$(foreach target,$^, $(MAKE) $(subst -c.bsg,_graph.h,$(target));)
+	$(foreach target,$^, $(MAKE) $(subst -c.bsg,_graph.c,$(target));)
 	$(foreach target,$^, $(MAKE) $(subst -c.bsg,.c,$(target));)
 	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,_config.vhd,$(target));)
-	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,.vhd,$(target));)
+	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,_graph.vhd,$(target));)
 
 clean:
 	rm -f *.map
@@ -47,13 +48,17 @@ clean:
 %-final-vhdl.dict: %-vhdl.dict %-routing.dict
 	cat $^ > $@
 
-%.h: $(templatedir)/*_template.h %-final-c.dict
+%_graph.h: $(templatedir)/*header_template.h %-final-c.dict
 	$(templor) $^ $@
 
-%.c: $(templatedir)/*_template.c %-final-c.dict
+%_graph.c: $(templatedir)/*source_template.c %-final-c.dict
 	$(templor) $^ $@
 
-%.vhd: $(templatedir)/*graph_template.vhd %-final-vhdl.dict
+%.c: $(templatedir)/*toplvl_template.c %-final-c.dict
+	$(templor) $^ $@
+	$(templor) $^ $@
+
+%_graph.vhd: $(templatedir)/*graph_template.vhd %-final-vhdl.dict
 	$(templor) $^ $@
 
 %_config.vhd: $(templatedir)/*config_template.vhd %-final-vhdl.dict

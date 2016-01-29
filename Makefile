@@ -5,15 +5,22 @@ map_route = $(toolchaindir)/map-route
 bg_gen = $(toolchaindir)/bg-generate
 templor = $(toolchaindir)/fill-template
 templatedir = $(toolchaindir)/templates
+outdir = ./generated
 
 all: rover-transformed.map
 
-targets: *.bsg
-	$(foreach target,$^, $(MAKE) $(subst -c.bsg,_graph.h,$(target));)
-	$(foreach target,$^, $(MAKE) $(subst -c.bsg,_graph.c,$(target));)
-	$(foreach target,$^, $(MAKE) $(subst -c.bsg,.c,$(target));)
-	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,_config.vhd,$(target));)
-	$(foreach target,$^, $(MAKE) $(subst -vhdl.bsg,_graph.vhd,$(target));)
+targets: c-targets vhdl-targets
+	mkdir -p $(outdir)
+
+c-targets: *-c.bsg
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_graph.h,$(target));)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_graph.c,$(target));)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_comm.h,$(target));)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_comm.c,$(target));)
+
+vhdl-targets: *-vhdl.bsg
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_config.vhd,$(target));)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_graph.vhd,$(target));)
 
 clean:
 	rm -f *.map
@@ -48,18 +55,22 @@ clean:
 %-final-vhdl.dict: %-vhdl.dict %-routing.dict
 	cat $^ > $@
 
-%_graph.h: $(templatedir)/*header_template.h %-final-c.dict
+$(outdir)/%_graph.h: $(templatedir)/*graph_template.h %-final-c.dict
 	$(templor) $^ $@
 
-%_graph.c: $(templatedir)/*source_template.c %-final-c.dict
+$(outdir)/%_graph.c: $(templatedir)/*graph_template.c %-final-c.dict
 	$(templor) $^ $@
 
-%.c: $(templatedir)/*toplvl_template.c %-final-c.dict
+$(outdir)/%_comm.h: $(templatedir)/*comm_template.h %-final-c.dict
 	$(templor) $^ $@
 	$(templor) $^ $@
 
-%_graph.vhd: $(templatedir)/*graph_template.vhd %-final-vhdl.dict
+$(outdir)/%_comm.c: $(templatedir)/*comm_template.c %-final-c.dict
+	$(templor) $^ $@
 	$(templor) $^ $@
 
-%_config.vhd: $(templatedir)/*config_template.vhd %-final-vhdl.dict
+$(outdir)/%_graph.vhd: $(templatedir)/*graph_template.vhd %-final-vhdl.dict
+	$(templor) $^ $@
+
+$(outdir)/%_config.vhd: $(templatedir)/*config_template.vhd %-final-vhdl.dict
 	$(templor) $^ $@

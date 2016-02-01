@@ -17,6 +17,7 @@ c-targets: *-c.bsg
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_graph.c,$(target));)
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_comm.h,$(target));)
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_comm.c,$(target));)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_toplvl.c,$(target));)
 
 vhdl-targets: *-vhdl.bsg
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_config.vhd,$(target));)
@@ -63,10 +64,11 @@ $(outdir)/%_graph.c: $(templatedir)/*graph_template.c %-final-c.dict
 
 $(outdir)/%_comm.h: $(templatedir)/*comm_template.h %-final-c.dict
 	$(templor) $^ $@
-	$(templor) $^ $@
 
 $(outdir)/%_comm.c: $(templatedir)/*comm_template.c %-final-c.dict
 	$(templor) $^ $@
+
+$(outdir)/%_toplvl.c: $(templatedir)/*toplvl_template.c %-final-c.dict
 	$(templor) $^ $@
 
 $(outdir)/%_graph.vhd: $(templatedir)/*graph_template.vhd %-final-vhdl.dict

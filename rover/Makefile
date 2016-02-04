@@ -10,9 +10,9 @@ outdir = ./generated
 all: rover-transformed.map
 
 targets: c-targets vhdl-targets
-	mkdir -p $(outdir)
 
 c-targets: *-c.bsg
+	mkdir -p $(outdir)
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_graph.h,$(target));)
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_graph.c,$(target));)
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_comm.h,$(target));)
@@ -20,8 +20,11 @@ c-targets: *-c.bsg
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -c.bsg,_toplvl.c,$(target));)
 
 vhdl-targets: *-vhdl.bsg
-	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_config.vhd,$(target));)
+	mkdir -p $(outdir)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_graph_config.vhd,$(target));)
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_graph.vhd,$(target));)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_graph_comm_config.vhd,$(target));)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_graph_comm.vhd,$(target));)
 
 clean:
 	rm -f *.map
@@ -74,5 +77,11 @@ $(outdir)/%_toplvl.c: $(templatedir)/*toplvl_template.c %-final-c.dict
 $(outdir)/%_graph.vhd: $(templatedir)/*graph_template.vhd %-final-vhdl.dict
 	$(templor) $^ $@
 
-$(outdir)/%_config.vhd: $(templatedir)/*config_template.vhd %-final-vhdl.dict
+$(outdir)/%_graph_config.vhd: $(templatedir)/*graph_config_template.vhd %-final-vhdl.dict
+	$(templor) $^ $@
+
+$(outdir)/%_graph_comm.vhd: $(templatedir)/*graph_comm_template.vhd %-final-vhdl.dict
+	$(templor) $^ $@
+
+$(outdir)/%_graph_comm_config.vhd: $(templatedir)/*graph_comm_config_template.vhd %-final-vhdl.dict
 	$(templor) $^ $@

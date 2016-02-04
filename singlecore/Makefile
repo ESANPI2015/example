@@ -69,7 +69,7 @@ $(outdir)/%_comm.h: $(templatedir)/*comm_template.h %-final-c.dict
 $(outdir)/%_comm.c: $(templatedir)/*comm_template.c %-final-c.dict
 	$(templor) $^ $@
 
-$(outdir)/%_toplvl.c: $(templatedir)/*toplvl_template.c %-final-c.dict
+$(outdir)/%_toplvl.c: my_templates/my_toplvl_template.c %-final-c.dict
 	$(templor) $^ $@
 
 $(outdir)/%_graph.vhd: $(templatedir)/*graph_template.vhd %-final-vhdl.dict

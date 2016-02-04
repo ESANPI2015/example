@@ -2,7 +2,7 @@
 #include "ndlcom/Bridge.h"
 #include "ndlcom/Node.h"
 
-#define <name>_NO_EXTERNAL_INTERFACES 1
+#define <name>_NO_EXTERNAL_INTERFACES <numExternalInterfaces>
 
 #if <name>_NO_EXTERNAL_INTERFACES > 0
 #include <stdio.h>
@@ -92,6 +92,11 @@ int main (int argc, char *argv[])
     struct <name>_context contexts[<name>_NO_EXTERNAL_INTERFACES];
     struct sockaddr_in addr_in;
     unsigned int i;
+
+    if (argc < 2+2*<name>_NO_EXTERNAL_INTERFACES) {
+        fprintf(stderr, "Usage: %s <ip-address> %u*(<read-port>, <write-port>)\n", argv[0], <name>_NO_EXTERNAL_INTERFACES);
+        return 1;
+    }
 
     /*Initialize ndlcom*/
     ndlcomBridgeInit(&bridge);

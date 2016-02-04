@@ -1,0 +1,12 @@
+name: singlecore
+nodes:
+- id: 1
+  name: cpu
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: SOURCE
+      name: audio_in
+    - id: 1
+      type: SINK
+      name: audio_out

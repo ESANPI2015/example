@@ -1,0 +1,63 @@
+nodes:
+- id: 1
+  name: audio_in
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: INPUT
+- id: 2
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: SUBGRAPH
+  subgraph_name: allpass.bg
+- id: 3
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: SUBGRAPH
+  subgraph_name: allpass.bg
+- id: 4
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: SUBGRAPH
+  subgraph_name: allpass.bg
+- id: 5
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: SUBGRAPH
+  subgraph_name: allpass.bg
+- id: 6
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: SUBGRAPH
+  subgraph_name: allpass.bg
+- id: 7
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: SUBGRAPH
+  subgraph_name: allpass.bg
+- id: 8
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: SUBGRAPH
+  subgraph_name: allpass.bg
+- id: 9
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: SUBGRAPH
+  subgraph_name: allpass.bg
+- id: 10
+  name: audio_out
+  inputs:
+  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  type: OUTPUT
+edges:
+- {fromNodeId: 1, fromNodeOutputIdx: 0, toNodeId: 2, toNodeInputIdx: 0, weight: 1.0}
+- {fromNodeId: 2, fromNodeOutputIdx: 0, toNodeId: 3, toNodeInputIdx: 0, weight: 1.0}
+- {fromNodeId: 3, fromNodeOutputIdx: 0, toNodeId: 4, toNodeInputIdx: 0, weight: 1.0}
+- {fromNodeId: 4, fromNodeOutputIdx: 0, toNodeId: 5, toNodeInputIdx: 0, weight: 1.0}
+- {fromNodeId: 5, fromNodeOutputIdx: 0, toNodeId: 6, toNodeInputIdx: 0, weight: 1.0}
+- {fromNodeId: 6, fromNodeOutputIdx: 0, toNodeId: 7, toNodeInputIdx: 0, weight: 1.0}
+- {fromNodeId: 7, fromNodeOutputIdx: 0, toNodeId: 8, toNodeInputIdx: 0, weight: 1.0}
+- {fromNodeId: 8, fromNodeOutputIdx: 0, toNodeId: 9, toNodeInputIdx: 0, weight: 1.0}
+- {fromNodeId: 1, fromNodeOutputIdx: 0, toNodeId: 10, toNodeInputIdx: 0, weight: 0.5}
+- {fromNodeId: 9, fromNodeOutputIdx: 0, toNodeId: 10, toNodeInputIdx: 0, weight: 0.5}
+- {fromNodeId: 9, fromNodeOutputIdx: 0, toNodeId: 2, toNodeInputIdx: 0, weight: 0.99}

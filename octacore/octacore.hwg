@@ -1,0 +1,132 @@
+name: octacore
+nodes:
+- id: 1
+  name: cpu1
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: SOURCE
+      name: audio_in
+    - id: 1
+      type: NDLCOM
+      name: PORT2
+- id: 2
+  name: cpu2
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: NDLCOM
+      name: PORT2
+- id: 3
+  name: cpu3
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: NDLCOM
+      name: PORT2
+- id: 4
+  name: cpu4
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: NDLCOM
+      name: PORT2
+- id: 5
+  name: cpu5
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: NDLCOM
+      name: PORT2
+- id: 6
+  name: cpu6
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: NDLCOM
+      name: PORT2
+- id: 7
+  name: cpu7
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: NDLCOM
+      name: PORT2
+- id: 8
+  name: cpu8
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: SINK
+      name: audio_out
+edges:
+- id: 1
+  name: first
+  nodes:
+  - id: 1
+    port: 1
+  - id: 2
+    port: 0
+- id: 2
+  name: second
+  nodes:
+  - id: 2
+    port: 1
+  - id: 3
+    port: 0
+- id: 3
+  name: third
+  nodes:
+  - id: 3
+    port: 1
+  - id: 4
+    port: 0
+- id: 4
+  name: fourth
+  nodes:
+  - id: 4
+    port: 1
+  - id: 5
+    port: 0
+- id: 5
+  name: fifth
+  nodes:
+  - id: 5
+    port: 1
+  - id: 6
+    port: 0
+- id: 6
+  name: sixth
+  nodes:
+  - id: 6
+    port: 1
+  - id: 7
+    port: 0
+- id: 7
+  name: seventh
+  nodes:
+  - id: 7
+    port: 1
+  - id: 8
+    port: 0

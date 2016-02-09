@@ -1,0 +1,31 @@
+name: heterogeneous
+nodes:
+- id: 1
+  name: streamer
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: SOURCE
+      name: audio_in
+    - id: 2
+      type: SINK
+      name: audio_out
+- id: 4
+  name: coprocessor
+  type: FPGA
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+
+edges:
+- id: 1
+  name: to_fpga
+  nodes:
+  - id: 1
+    port: 0
+  - id: 4
+    port: 0

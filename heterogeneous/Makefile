@@ -25,6 +25,7 @@ vhdl-targets: *-vhdl.bsg
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_graph.vhd,$(target));)
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_graph_comm_config.vhd,$(target));)
 	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_graph_comm.vhd,$(target));)
+	$(foreach target,$^, $(MAKE) $(outdir)/$(subst -vhdl.bsg,_NDLCom_wrapper.vhd,$(target));)
 
 clean:
 	rm -f *.map
@@ -84,4 +85,7 @@ $(outdir)/%_graph_comm.vhd: $(templatedir)/*graph_comm_template.vhd %-final-vhdl
 	$(templor) $^ $@
 
 $(outdir)/%_graph_comm_config.vhd: $(templatedir)/*graph_comm_config_template.vhd %-final-vhdl.dict
+	$(templor) $^ $@
+
+$(outdir)/%_NDLCom_wrapper.vhd: $(templatedir)/NDLCom_wrapper.vhd %-final-vhdl.dict
 	$(templor) $^ $@

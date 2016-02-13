@@ -20,6 +20,9 @@ nodes:
     - id: 0
       type: NDLCOM
       name: PORT1
+    - id: 1
+      type: NDLCOM
+      name: PORT2
 
 edges:
 - id: 1

@@ -17,11 +17,8 @@ float <name>_readInternalInput(const unsigned int i)
         return 0.0f;
 
     if (fread(&val, sizeof(val), 1, audio_in_fp) < 1) {
-        fclose(audio_in_fp);
-        audio_in_fp = NULL;
         return 0.0f;
     }
-    usleep(100000);
     return val;
 }
 

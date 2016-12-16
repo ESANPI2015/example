@@ -1,0 +1,47 @@
+name: charlie
+nodes:
+- id: 1
+  name: x86
+  type: CONVENTIONAL
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+#- id: 4
+#  name: spine_board
+#  type: FPGA
+#  ports:
+#    - id: 0
+#      type: NDLCOM
+#      name: PORT1
+#    - id: 1
+#      type: NDLCOM
+#      name: PORT2
+- id: 106
+  name: bldc_joint
+  type: FPGA
+  ports:
+    - id: 0
+      type: NDLCOM
+      name: PORT1
+    - id: 1
+      type: NDLCOM
+      name: PORT2
+#- id: 105
+#  name: mdaq2
+#  type: CONVENTIONAL
+#  ports:
+#    - id: 0
+#      type: NDLCOM
+#      name: PORT1
+#    - id: 1
+#      type: NDLCOM
+#      name: PORT2
+edges:
+- id: 1
+  name: x86_to_bldc
+  nodes:
+  - id: 1
+    port: 0
+  - id: 106
+    port: 0

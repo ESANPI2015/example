@@ -1,0 +1,22 @@
+nodes:
+  - id: 1
+    name: AUDIO_IN
+    inputs:
+    - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+    type: INPUT
+  - id: 2
+    type: '>0'
+    inputs:
+    - {idx: 0, bias: -1, default: 0.0, type: 'SUM'}
+    - {idx: 1, bias: 0, default: 1.0, type: 'SUM'}
+    - {idx: 2, bias: 0, default: 0.0, type: 'SUM'}
+    outputs:
+      name: out1
+  - id: 10
+    name: LED
+    inputs:
+    - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+    type: OUTPUT
+edges:
+  - {fromNodeId: 1, fromNodeOutputIdx: 0, toNodeId: 2, toNodeInputIdx: 0, weight: 1.0}
+  - {fromNodeId: 2, fromNodeOutputIdx: 0, toNodeId: 10, toNodeInputIdx: 0, weight: 1.0}

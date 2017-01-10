@@ -1,12 +1,12 @@
 name: charlie
 nodes:
-- id: 1
-  name: x86
-  type: CONVENTIONAL
-  ports:
-    - id: 0
-      type: NDLCOM
-      name: PORT1
+#- id: 1
+#  name: x86
+#  type: CONVENTIONAL
+#  ports:
+#    - id: 0
+#      type: NDLCOM
+#      name: PORT1
 #- id: 4
 #  name: spine_board
 #  type: FPGA
@@ -27,6 +27,21 @@ nodes:
     - id: 1
       type: NDLCOM
       name: PORT2
+    - id: 2
+      type: SOURCE
+      name: angle
+    - id: 3
+      type: SOURCE
+      name: angleDot
+    - id: 4
+      type: SOURCE
+      name: temperature
+    - id: 5
+      type: SOURCE
+      name: voltage
+    - id: 10
+      type: SINK
+      name: pwm
 #- id: 105
 #  name: mdaq2
 #  type: CONVENTIONAL
@@ -38,10 +53,10 @@ nodes:
 #      type: NDLCOM
 #      name: PORT2
 edges:
-- id: 1
-  name: x86_to_bldc
-  nodes:
-  - id: 1
-    port: 0
-  - id: 106
-    port: 0
+#- id: 1
+#  name: x86_to_bldc
+#  nodes:
+#  - id: 1
+#    port: 0
+#  - id: 106
+#    port: 0

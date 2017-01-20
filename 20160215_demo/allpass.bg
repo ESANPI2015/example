@@ -11,7 +11,7 @@ nodes:
 - id: 3
   inputs:
   - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
-  - {idx: 0, bias: 0, default: 0.0, type: 'SUM'}
+  - {idx: 1, bias: 0, default: 0.0, type: 'SUM'}
   type: SUBGRAPH
   subgraph_name: opamp.bg
 - id: 4
